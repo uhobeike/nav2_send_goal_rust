@@ -1,6 +1,6 @@
 #!/bin/bash -xve
 
-sudo apt install curl gnupg2 lsb-release python3-pip git
+sudo apt install curl gnupg2 lsb-release python3-pip git clang
 
 sudo curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source $HOME/.cargo/env
