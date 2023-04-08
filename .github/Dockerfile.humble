@@ -4,13 +4,12 @@ SHELL ["/bin/bash", "-c"]
 
 RUN apt update -y
 
-RUN ./ros2_rust_install_script.sh
-
 WORKDIR $HOME/catkin_ws/src/
 
 RUN cd $HOME/catkin_ws/ \
-    && git clone https://github.com/uhobeike/nav2_send_goal_rust.git /src/nav2_send_goal_rust \
+    && git clone https://github.com/uhobeike/nav2_send_goal_rust.git src/nav2_send_goal_rust \
     && if "false"; then cd nav2_send_goal_rust;git fetch origin pull/ID/head:pull_request-ci;git checkout pull_request-ci;fi \
+    && ./src/nav2_send_goal_rusta/ros2_rust_install_script.sh \
     && rosdep update \
     && rosdep install -r -y --from-paths --ignore-src ./ \
     && source /opt/ros/humble/setup.bash \
