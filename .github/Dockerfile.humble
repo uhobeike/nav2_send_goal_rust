@@ -1,0 +1,16 @@
+FROM osrf/ros:humble-desktop
+
+SHELL ["/bin/bash", "-c"]
+
+RUN apt update -y
+
+RUN ./ros2_rust_install_script.sh
+
+RUN cd $HOME/catkin_ws \
+    && rosdep update \
+    && rosdep install -r -y --from-paths --ignore-src ./ \
+    && source /opt/ros/humble/setup.bash \
+    && source $HOME/.cargo/env \
+    && colcon  build --symlink-install
+
+WORKDIR /root/catkin_ws/src/ 
