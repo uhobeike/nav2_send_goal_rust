@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2023 Tatsuhiro Ikebe <beike315@icloud.com>
+// SPDX-License-Identifier: Apache-2.0
+
 use nav2_send_goal_rust::Waypoint;
 
 use r2r::{nav2_msgs::action::NavigateToPose, ClockType::RosTime};

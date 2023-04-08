@@ -1,5 +1,8 @@
 #!/bin/bash -xve
 
+# SPDX-FileCopyrightText: 2023 Tatsuhiro Ikebe <beike315@icloud.com>
+# SPDX-License-Identifier: Apache-2.0
+
 sudo apt install -y curl gnupg2 lsb-release python3-pip git clang
 
 sudo curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y

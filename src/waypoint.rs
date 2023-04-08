@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2023 Tatsuhiro Ikebe <beike315@icloud.com>
+// SPDX-License-Identifier: Apache-2.0
+
 pub struct Waypoint {
     pub x: f64,
     pub y: f64,
