@@ -15,6 +15,7 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    container: osrf/ros:humble-desktop
     strategy:
       matrix:
         rosdistro:
@@ -24,12 +25,21 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
       
-      - name: Sed clone url
-        if: ${{ github.event_name == 'pull_request' }}
+      - name: Apt update
         run: |
-          sed -i -e "s;false;true;" ./.github/Dockerfile.humble
-          sed -i -e "s;pull/ID/head;"$(echo "${GITHUB_REF#refs/heads/}" | sed -e "s;refs/;;")";" ./.github/Dockerfile.humble
-      
-      - name: Docker Build Test
-        run: docker build -f ./.github/Dockerfile.humble .
+          sudo apt update -y
+
+      - name : ROS 2 Rust install 
+        run: ./ros2_rust_install_script.sh
+
+      - name: Build Test
+        run: |
+          mkdir ../catkin_ws/src -p
+          cp -r ./* ../catkin_ws/src
+          cd ../catkin_ws
+          rosdep update
+          rosdep install -r -y --from-paths --ignore-src ./
+          source /opt/ros/humble/setup.bash
+          source $HOME/.cargo/env
+          colcon  build --symlink-install
         shell: bash
